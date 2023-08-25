@@ -1,0 +1,7 @@
+struct cam_message_t {
+	int64_t  timestamp;
+	float robot_pos[3];
+	float obs_1_pos[3];
+	float obs_2_pos[3];
+	float obs_3_pos[3];
+}
