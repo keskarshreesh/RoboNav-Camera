@@ -129,7 +129,7 @@ def pose_estimation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
             # print('Rotation of ref ' + str(ids[i]))
             # print(rotation_angles)
 
-            marker_id_to_pos_map[ids[i][0]] = (-marker_coordinates[0],marker_coordinates[1],rotation_angles[2])
+            marker_id_to_pos_map[ids[i][0]] = (-marker_coordinates[1],marker_coordinates[0],rotation_angles[2])
             publish_cam_msg()
 
     return frame
@@ -164,7 +164,7 @@ if __name__ == '__main__':
     
     s = time.time()
 
-    # result_frames = []
+    result_frames = []
 
     while True:
         ret, frame = video.read()
@@ -173,7 +173,7 @@ if __name__ == '__main__':
             break
         
         output = pose_estimation(frame, aruco_dict_type, k, d)
-        # result_frames.append(output)
+        result_frames.append(output)
 
         cv2.imshow('Estimated Pose', output)
 
@@ -184,9 +184,9 @@ if __name__ == '__main__':
         print(1/((time.time() - s)), (time.time() - s))
         s = time.time()
 
-    # for frame_num,frame in enumerate(result_frames):
-    #     print(f"Writing video: Frame {str(frame_num)}")
-    #     result.write(frame)
+    for frame_num,frame in enumerate(result_frames):
+        print(f"Writing video: Frame {str(frame_num)}")
+        result.write(frame)
 
     video.release()
     result.release()
