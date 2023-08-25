@@ -10,14 +10,13 @@ import time
 from cv2 import aruco
 import pickle
 import os
-import matplotlib.pyplot as plt
 import lcm
 from cam_lcm.cam_message_t import cam_message_t
 
 cam_extrinsics = np.array([
- [0.02136624,-0.99840068,0.05234092,-0.04847866],
- [-0.99970465,-0.0219419,-0.0104485,0.00539262],
- [0.01158024,-0.05210221,-0.99857461,0.07975163],
+ [0.01402772,-0.99688577,0.07760138,-0.05161499],
+ [-0.99966354,-0.01567554,-0.02066615,0.01266701],
+ [0.02181824,-0.07728537,-0.99677025,0.08033391],
  [0.,0.,0.,1.]
 ])
 
@@ -130,7 +129,7 @@ def pose_estimation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
             # print('Rotation of ref ' + str(ids[i]))
             # print(rotation_angles)
 
-            marker_id_to_pos_map[ids[i][0]] = (marker_coordinates[0],marker_coordinates[1],rotation_angles[2])
+            marker_id_to_pos_map[ids[i][0]] = (-marker_coordinates[0],marker_coordinates[1],rotation_angles[2])
             publish_cam_msg()
 
     return frame
